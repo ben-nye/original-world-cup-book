@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_create_users
+      author: ${TEAM_NAME}
+      comment: Create initial users table
+      changes:
+        - sql:
+            sql: |
+              CREATE TABLE users (
+                  id          SERIAL PRIMARY KEY,
+                  username    VARCHAR(100) NOT NULL UNIQUE,
+                  email       VARCHAR(255) NOT NULL UNIQUE,
+                  created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
+                  updated_at  TIMESTAMP NOT NULL DEFAULT NOW()
+              );
+      rollback:
+        - sql:
+            sql: DROP TABLE users;
